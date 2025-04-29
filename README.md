@@ -1,4 +1,4 @@
-# [Project Name]
+# CG Savior
 
 A resource-sharing platform for BRAC University (or your institution), where students can share and access useful course materials like books, videos, slides, and more.
 
@@ -22,3 +22,11 @@ A resource-sharing platform for BRAC University (or your institution), where stu
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/your-repo-name.git
+2. Navigate into the project:
+   ```bash
+   cd your-repo-name
+3.Install dependencies:
+   ```bash
+   npm install
+
+4.Run the project:
