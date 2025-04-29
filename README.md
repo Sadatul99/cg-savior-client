@@ -21,12 +21,17 @@ A resource-sharing platform for BRAC University (or your institution), where stu
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone https://github.com/Sadatul99/cg-savior-client.git
 2. Navigate into the project:
    ```bash
-   cd your-repo-name
+   cd cg-savior-client
 3.Install dependencies:
    ```bash
    npm install
+```
+4.Start the development server:
+```bash
+   npm run dev
+```
+   
 
-4.Run the project:
