@@ -1,0 +1,34 @@
+[
+    {
+        "course_code": "CSE110",
+        "description": "MSI Playlist",
+        "publishers_name": "Sadatul Hossain",
+        "type": "youtube",
+        "link" : "https://youtube.com/playlist?list=PLtQXTSdoymQfo173BJeLyMZ9KlI7tORwW",
+        "vote": 0
+    },
+    {
+        "course_code": "CSE110",
+        "description": "TAW Python Playlist",
+        "publishers_name": "Sadatul Hossain",
+        "type": "youtube",
+        "link" : "https://www.youtube.com/playlist?list=PLvr0Ht-XkB_0V-mjAYlfgk-3VRmFarlzC",
+        "vote": 0
+    },
+    {
+        "course_code": "CSE110",
+        "description": "Mixed",
+        "publishers_name": "Sadatul Hossain",
+        "type": "youtube",
+        "link" : "https://youtube.com/playlist?list=PLOUm6fJiwrYGMkhdciCreaATtmUMuaoBz",
+        "vote": 0
+    },
+    {
+        "course_code": "CSE110",
+        "description": "TAW Java Playlist",
+        "publishers_name": "Sadatul Hossain",
+        "type": "youtube",
+        "link" : "https://youtube.com/playlist?list=PLvr0Ht-XkB_0KC2-N3hv0V3ib-Z6wKkAy&si=iPUg6XmhB4_0U8Vn",
+        "vote": 0
+    }
+]

@@ -1,0 +1,56 @@
+[
+    {
+        "course_code": "CSE110",
+        "course_title": "Programming Language I",
+        "pre-requisite": "N/A",
+        "soft_pre_requisite": "N/A",
+        "lab": true,
+        "credit": 3,
+        "course_description" : "This course introduces foundational knowledge of string manipulation, arrays, control structure, file input/output, and the like. The debugging techniques and programming tools will make the students well-equipped in creating fundamental programs. From the anticipated outcomes of this course students will be able to: 1. Use flow control design tools, create flowcharts for solving problems. Write, debug, and execute programs using a programming language from hands-on experience. 2. Apply branching and looping structures to control program flow, and implement conditional statements, loops, and basic programming concepts to solve simple problems. Also, manipulate text data using string manipulation techniques. 3. Create, read, and modify arrays to store and process data, and sort array items using various sorting techniques."
+    },
+    {
+        "course_code": "CSE111",
+        "course_title": "Programming Language II",
+        "pre-requisite": "CSE110",
+        "soft-pre-requisite": "N/A",
+        "lab": true,
+        "credit": 3,
+        "course_description" : "This course would be an introduction to data structures, formal specification of syntax, elements of language theory and mathematical preliminaries. Other topics that would be covered are formal languages, structured programming concepts, survey of features of existing high level languages. Students would design and write application using an appropriate language."
+    },
+    {
+        "course_code": "CSE220",
+        "course_title": "Data Structures",
+        "pre-requisite": "CSE111",
+        "soft-pre-requisite": "N/A",
+        "lab": true,
+        "credit": 3,
+        "course_description" : "Introduction to widely used and effective methods of data organisation, focussing on data structures, their algorithms and the performance of these algorithms. Concepts and examples, elementary data objects, elementary data structures, arrays, lists, stacks, queues, graphs, trees, compound structures, data abstraction and primitive operations on these structures. memory management; sorting and searching; hash techniques; Introduction to the fundamental algorithms and data structures: recursion, backtrack search, lists, stacks, queues, trees, operation on sets, priority queues, graph dictionary. Introduction to the analysis of algorithms to process the basic structures. A brief introduction to database systems and the analysis of data structure performance and use in these systems. The course includes a compulsory 3 hour laboratory work alternate week."
+    },
+    {
+        "course_code": "CSE221",
+        "course_title": "Algorithms",
+        "pre-requisite": "CSE220",
+        "soft-pre-requisite": "N/A",
+        "lab": true,
+        "credit": 3,
+        "course_description" : "The study of efficient algorithms and effective algorithm design techniques. Techniques for analysis of algorithms, Methods for the design of efficient algorithms :Divide and Conquer paradigm, Greedy method, Dynamic programming, Backtracking, Basic search and traversal techniques, Graph algorithms, Elementary parallel algorithms, Algebraic simplification and transformations, Lower bound theory, NP-hard and NP-complete problems. Techniques for the design and analysis of efficient algorithms, Emphasising methods useful in practice. sorting; Data structures for sets: Heaps, Hashing; Graph algorithms: Shortest paths, Depth-first search, Network flow, Computational geometry; Integer arithmetic: gcd, primality; polynomial and matrix calculations; amortised analysis; Performance bounds, asymptotic and analysis, worst case and average case behaviour, correctness and complexity. Particular classes of algorithms such as sorting and searching are studied in detail."
+    },
+    {
+        "course_code": "CSE230",
+        "course_title": "Discrete Mathematics",
+        "pre-requisite": "N/A",
+        "soft-pre-requisite": "N/A",
+        "lab": false,
+        "credit": 3,
+        "course_description" : "Set theory, Elementary number theory, Graph theory, Paths and trees, Boolean Algebra, Binary Relations, Functions, Algebraic system, Generating functions, Induction, Reduction, Semigroup, Permutation groups, Discrete Probability, Mathematical logic, Prepositional calculus and Predicate calculus."
+    },
+    {
+        "course_code": "CSE250",
+        "course_title": "Circuits and Electronics",
+        "pre-requisite": "N/A",
+        "soft-pre-requisite": "PHY112",
+        "lab": true,
+        "credit": 3,
+        "course_description" : "Fundamental electrical concepts and measuring units. Direct current: voltage, current, resistance and power. Laws of electrical circuits and methods of network analysis; Introduction to magnetic circuits. Alternating current: instantaneous and r.m.s. current, voltage and power, average power for various combinations of R, L and C circuits, phasor representation of sinusoidal quantities."
+    }
+]
