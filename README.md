@@ -30,7 +30,7 @@ A resource-sharing platform for BRAC University (or your institution), where stu
    npm install
    ```
 4. Start the development server:
-```bash
+   ```bash
    npm run dev
    ```
    
