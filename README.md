@@ -25,13 +25,12 @@ A resource-sharing platform for BRAC University (or your institution), where stu
 2. Navigate into the project:
    ```bash
    cd cg-savior-client
-3.Install dependencies:
+3. Install dependencies:
    ```bash
    npm install
-```
-4.Start the development server:
+   ```
+4. Start the development server:
 ```bash
    npm run dev
-```
    
 
