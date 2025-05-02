@@ -4,7 +4,7 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import ResourceTab from './ResourceTab';
-import Spreadsheet from '../ClassroomResources/Spreadsheet';
+
 
 const Resources = ({ course_code }) => {
     const [resources] = useResources();
@@ -67,7 +67,7 @@ const Resources = ({ course_code }) => {
                 </TabPanel>
             </Tabs>
 
-            <Spreadsheet></Spreadsheet>
+            
         </div>
     );
 };

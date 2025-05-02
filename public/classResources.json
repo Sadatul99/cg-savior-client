@@ -1,0 +1,16 @@
+[
+    {
+        "class_code": "class1",
+        "course_code": "CSE110",
+        "description": "MSI Playlist",
+        "type": "youtube",
+        "link" : "https://youtube.com/playlist?list=PLtQXTSdoymQfo173BJeLyMZ9KlI7tORwW"
+    },
+    {
+        "class_code": "class1",
+        "course_code": "CSE110",
+        "description": "MSI Playlist",
+        "type": "youtube",
+        "link" : "https://youtube.com/playlist?list=PLtQXTSdoymQfo173BJeLyMZ9KlI7tORwW"
+    }
+]

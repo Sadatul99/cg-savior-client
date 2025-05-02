@@ -1,0 +1,20 @@
+[
+    {
+        "class_code": "class1",
+        "course_code": "CSE110",
+        "email": "faculty@email.com",
+        "faculty_initial": "TBA",
+        "section": "01",
+        "semester": "FALL2025"
+
+    },
+    {
+        "class_code": "class2",
+        "course_code": "CSE110",
+        "email": "faculty@email.com",
+        "faculty_initial": "TBA",
+        "section": "02",
+        "semester": "FALL2025"
+
+    }
+]

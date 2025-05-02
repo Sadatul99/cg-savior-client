@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Resources from '../Resources/Resources';
+import ClassroomResources from '../ClassroomResources/ClassroomResources';
 
 const CoursePage = () => {
   const { id } = useParams();
@@ -70,6 +71,11 @@ const CoursePage = () => {
    <Resources 
    course_code={course_code}
    ></Resources>
+
+    {/* classroom resources should be here */}
+
+    <ClassroomResources course_code={course_code} />
+
   </>
     
   );
