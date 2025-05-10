@@ -17,12 +17,18 @@ import AddResource from "../pages/DashBoard/AddResource/AddResource";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import CoursePage from "../pages/DashBoard/CoursePage/CoursePage";
+import FacultyHome from "../pages/DashBoard/FacultyHome/FacultyHome";
+import DashboardHome from "../components/DashboardHome/DashboardHome";
+import AddClassroom from "../pages/DashBoard/AddClassroom/AddClassroom";
+import ClassCollection from "../pages/DashBoard/ClassCollection/ClassCollection";
+import ClassPage from "../pages/DashBoard/ClassPage/ClassPage";
+import AddClassMaterial from "../pages/DashBoard/AddClassMaterial/AddClassMaterial";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
       { path: "our-team", element: <OurTeam /> },
@@ -33,20 +39,49 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <PrivateRoute><Dashboard /></PrivateRoute>,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       // Dashboard Home (Admin, Faculty or User home)
-      { path: "", element: <AdminHome /> },
+      { 
+        path: "", 
+        element: <DashboardHome></DashboardHome>
+      },
+      
 
       // Common Routes
-      { path: "courses", element: <Courses /> },
-      { path: "courses/:id", element: <CoursePage /> },
-      { path: "bookmarks", element: <BookmarkedCourses /> },
+      { path: "courses", 
+        element: <Courses /> 
+      },
+      { path: "courses/:id", 
+        element: <CoursePage />
+       },
+      { path: "bookmarks", 
+        element: <BookmarkedCourses />
+       },
 
       // Admin-only routes
-      { path: "users", element: <AdminRoute><AllUsers /></AdminRoute> },
-      { path: "addcourse", element: <AdminRoute><AddCourse /></AdminRoute> },
-      { path: "addresource", element: <AdminRoute><AddResource /></AdminRoute> }
+      { path: "users", 
+        element: <AdminRoute><AllUsers /></AdminRoute> 
+      },
+      { path: "addcourse", 
+        element: <AdminRoute><AddCourse /></AdminRoute> 
+      },
+      { path: "addresource",  
+        element: <AdminRoute><AddResource /></AdminRoute> 
+      },
+      // Faculty routes
+      { path: "addclassroom",  
+        element:  <AddClassroom></AddClassroom>
+      },
+      { path: "myclasses",  
+        element:  <ClassCollection></ClassCollection>
+      },
+      { path: "myclasses/:code",  
+        element:  <ClassPage></ClassPage>
+      },
+      { path: "uploadmaterial",  
+        element:  <AddClassMaterial></AddClassMaterial>
+      },
     ]
   }
 ]);

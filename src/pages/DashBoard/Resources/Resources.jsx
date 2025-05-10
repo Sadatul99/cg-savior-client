@@ -4,10 +4,11 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import ResourceTab from './ResourceTab';
+import useAdmin from '../../../hooks/useAdmin';
 
 
 const Resources = ({ course_code }) => {
-    const [resources] = useResources();
+    const [resources, refetch] = useResources();
     const filteredResources = resources.filter(resource => resource.course_code == course_code)
 
     const playlist = filteredResources.filter(resource => resource.type == "youtube")
@@ -21,7 +22,7 @@ const Resources = ({ course_code }) => {
 
     const [tabIndex, setTabIndex] = useState(0);
 
-
+    const isAdmin = useAdmin();
 
     return (
         <div className="p-4">
@@ -42,28 +43,28 @@ const Resources = ({ course_code }) => {
                     <Tab>Others</Tab>
                 </TabList>
                 <TabPanel>
-                    <ResourceTab items={playlist}></ResourceTab>
+                    <ResourceTab items={playlist} isAdmin={isAdmin} refetch={refetch}></ResourceTab>
                 </TabPanel>
                 <TabPanel>
-                    <ResourceTab items={mid}></ResourceTab>
+                    <ResourceTab items={mid} isAdmin={isAdmin} refetch={refetch}></ResourceTab>
                 </TabPanel>
                 <TabPanel>
-                    <ResourceTab items={final}></ResourceTab>
+                    <ResourceTab items={final} isAdmin={isAdmin} refetch={refetch}></ResourceTab>
                 </TabPanel>
                 <TabPanel>
-                    <ResourceTab items={slides}></ResourceTab>
+                    <ResourceTab items={slides} isAdmin={isAdmin} refetch={refetch}></ResourceTab>
                 </TabPanel>
                 <TabPanel>
-                    <ResourceTab items={notes}></ResourceTab>
+                    <ResourceTab items={notes} isAdmin={isAdmin} refetch={refetch}></ResourceTab>
                 </TabPanel>
                 <TabPanel>
-                    <ResourceTab items={practicesheet}></ResourceTab>
+                    <ResourceTab items={practicesheet} isAdmin={isAdmin} refetch={refetch}></ResourceTab>
                 </TabPanel>
                 <TabPanel>
-                    <ResourceTab items={books}></ResourceTab>
+                    <ResourceTab items={books} isAdmin={isAdmin} refetch={refetch}></ResourceTab>
                 </TabPanel>
                 <TabPanel>
-                    <ResourceTab items={others}></ResourceTab>
+                    <ResourceTab items={others} isAdmin={isAdmin} refetch={refetch}></ResourceTab>
                 </TabPanel>
             </Tabs>
 

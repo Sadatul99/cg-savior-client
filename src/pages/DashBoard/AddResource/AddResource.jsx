@@ -2,14 +2,16 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle"
 import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
 import DebouncedSearchCombobox from "../../../components/DebouncedSeach/DebouncedSearchCombobox"
-import useAxiosSecure from "../../../hooks/useAxiosSecure"
+// import useAxiosSecure from "../../../hooks/useAxiosSecure"
 import Swal from "sweetalert2"
+import useAxiosPublic from "../../../hooks/useAxiosPublic"
 
 const AddResource = () => {
     const { register, handleSubmit, setValue,reset, formState: { errors } } = useForm()
     const [courseCodes, setCourseCodes] = useState([])
     const [selectedCode, setSelectedCode] = useState('')
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
+    const axiosPublic = useAxiosPublic()
 
     const onSubmit = async (data) => {
         const resource = {
@@ -22,7 +24,7 @@ const AddResource = () => {
         }
         console.log(data)
 
-        const resourceRes = await axiosSecure.post('/resources', resource);
+        const resourceRes = await axiosPublic.post('/resources', resource);
             if(resourceRes.data.insertedId){
                 // show success popup
                 reset();

@@ -21,7 +21,7 @@ function useDebounce(value, delay) {
 }
 
 const Courses = () => {
-  const [courses] = useCourses();
+  const [courses, refetch] = useCourses();
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 300);
 
@@ -53,7 +53,7 @@ const Courses = () => {
       <div className="pt-10 px-4 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {filteredCourses.length > 0 ? (
           filteredCourses.map(course => (
-            <CourseCard key={course.course_code} course={course} />
+            <CourseCard key={course.course_code} course={course} refetch={refetch} />
           ))
         ) : (
           <p className="text-center col-span-full text-gray-500">No courses found</p>

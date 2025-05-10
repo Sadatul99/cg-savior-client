@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 
 const ClassroomResources = ({ course_code }) => {
   const axiosPublic = useAxiosPublic();
@@ -74,6 +75,10 @@ const ClassroomResources = ({ course_code }) => {
     .sort((a, b) => a.sortKey - b.sortKey);
 
   return (
+    <><SectionTitle
+    heading="Faculty Resources"
+    >
+    </SectionTitle>
     <div className="max-w-6xl mx-auto mt-8 px-4 py-6 bg-white shadow rounded-md">
       <h2 className="text-xl font-semibold mb-4">Faculty Sections</h2>
       <div className="flex gap-6">
@@ -150,6 +155,8 @@ const ClassroomResources = ({ course_code }) => {
         </div>
       </div>
     </div>
+    </>
+    
   );
 };
 

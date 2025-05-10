@@ -52,5 +52,13 @@
         "lab": true,
         "credit": 3,
         "course_description" : "Fundamental electrical concepts and measuring units. Direct current: voltage, current, resistance and power. Laws of electrical circuits and methods of network analysis; Introduction to magnetic circuits. Alternating current: instantaneous and r.m.s. current, voltage and power, average power for various combinations of R, L and C circuits, phasor representation of sinusoidal quantities."
+    },
+    {
+          VITE_apiKey= AIzaSyAKTi-g-cvzStIZAkksmuwnSQgZ59FfmB0
+  VITE_authDomain= cg-savior.firebaseapp.com
+  VITE_projectId= cg-savior
+  VITE_storageBucket= cg-savior.firebasestorage.app
+  VITE_messagingSenderId= 883989281088
+  VITE_appId= 1:883989281088:web:f82c4296329b3de82562a5
     }
 ]

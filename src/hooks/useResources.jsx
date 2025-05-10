@@ -1,22 +1,18 @@
-import { useEffect } from "react";
-import { useState } from "react";
-
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from './useAxiosSecure'; // Assuming you have this
 
 const useResources = () => {
+  const axiosSecure = useAxiosSecure();
 
-    const [resources, setResource] = useState([])
-    // const [loading, setLoading] = useState(true)
+  const { data: resources = [], refetch, isLoading, isError } = useQuery({
+    queryKey: ['resources'],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/resources');
+      return res.data;
+    }
+  });
 
-    useEffect(() =>{
-        fetch('http://localhost:5000/resources')
-        .then(res => res.json())
-        .then(data => {
-            setResource(data)
-            // setLoading(false)
-        })
-    },[])
-    
-    return [resources]
+  return [resources, refetch, isLoading, isError];
 };
 
 export default useResources;
