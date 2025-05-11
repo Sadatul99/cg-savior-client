@@ -23,6 +23,7 @@ import AddClassroom from "../pages/DashBoard/AddClassroom/AddClassroom";
 import ClassCollection from "../pages/DashBoard/ClassCollection/ClassCollection";
 import ClassPage from "../pages/DashBoard/ClassPage/ClassPage";
 import AddClassMaterial from "../pages/DashBoard/AddClassMaterial/AddClassMaterial";
+import UpdateCourse from "../pages/DashBoard/UpdateCourse/UpdateCourse";
 
 export const router = createBrowserRouter([
   {
@@ -52,23 +53,28 @@ export const router = createBrowserRouter([
       { path: "courses", 
         element: <Courses /> 
       },
-      { path: "courses/:id", 
+      { path: "courses/:course_code", 
         element: <CoursePage />
+       },
+      { path: "courses/updateCourse/:course_code", 
+        element: <UpdateCourse></UpdateCourse>,
+        loader: ({params}) => fetch(`http://localhost:5000/courses/${params.course_code}`)
        },
       { path: "bookmarks", 
         element: <BookmarkedCourses />
        },
+       { path: "addresource",  
+         element: <AddResource />
+       },
 
       // Admin-only routes
       { path: "users", 
-        element: <AdminRoute><AllUsers /></AdminRoute> 
+        element: <AllUsers /> 
       },
       { path: "addcourse", 
-        element: <AdminRoute><AddCourse /></AdminRoute> 
+        element: <AddCourse />
       },
-      { path: "addresource",  
-        element: <AdminRoute><AddResource /></AdminRoute> 
-      },
+
       // Faculty routes
       { path: "addclassroom",  
         element:  <AddClassroom></AddClassroom>
@@ -79,7 +85,7 @@ export const router = createBrowserRouter([
       { path: "myclasses/:code",  
         element:  <ClassPage></ClassPage>
       },
-      { path: "uploadmaterial",  
+      { path: "uploadmaterial/:code",  
         element:  <AddClassMaterial></AddClassMaterial>
       },
     ]

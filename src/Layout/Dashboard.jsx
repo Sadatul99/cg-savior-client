@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [isAdmin, adminLoading] = useAdmin();
   const [isFaculty, facultyLoading] = useFaculty();
 
-  // Show loading until both roles are determined
+  //Show loading until both roles are determined
   if (adminLoading || facultyLoading) {
     return (
       <div className="flex items-center justify-center h-screen text-white">
@@ -17,6 +17,8 @@ const Dashboard = () => {
       </div>
     );
   }
+  // const isAdmin = false
+  // const isFaculty = true
 
   const navClass = ({ isActive }) =>
     `flex items-center gap-3 p-3 rounded-lg transition ${
@@ -77,11 +79,11 @@ const Dashboard = () => {
               📘 My Classrooms
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/dashboard/uploadmaterial" className={navClass}>
               📤 Upload Materials
             </NavLink>
-          </li>
+          </li> */}
         </>
       );
     } else {

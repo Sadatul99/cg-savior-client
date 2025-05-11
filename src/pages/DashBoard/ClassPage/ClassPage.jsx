@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
 
 const ClassPage = () => {
-    const data = useParams();
-    const class_code = data.code
+  const { code: class_code } = useParams();
   const axiosPublic = useAxiosPublic();
-
   const [classData, setClassData] = useState(null);
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchClass = async () => {
@@ -41,7 +40,7 @@ const ClassPage = () => {
     fetchResources();
   }, [class_code, axiosPublic]);
 
-  const handleDelete = async (id) => {
+  const handleDeleteResource = async (id) => {
     const result = await Swal.fire({
       title: 'Are you sure?',
       text: "This resource will be permanently deleted!",
@@ -64,12 +63,44 @@ const ClassPage = () => {
     }
   };
 
+  const deleteClassWithResources = async () => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "This class and all its resources will be permanently deleted!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete everything!'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await axiosPublic.delete(`/classroom/delete-with-resources/${class_code}`);
+        Swal.fire('Deleted!', 'Class and all resources deleted.', 'success');
+        navigate('/dashboard'); // Redirect after deletion
+      } catch (err) {
+        console.error('Failed to delete class:', err);
+        Swal.fire('Error!', 'Something went wrong.', 'error');
+      }
+    }
+  };
+
   if (loading) return <div className="text-center py-10">Loading class details...</div>;
   if (!classData) return <div className="text-center py-10 text-red-500">Class not found</div>;
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-4 text-blue-600">{classData.class_code.toUpperCase()}</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-3xl font-bold text-blue-600">{classData.class_code.toUpperCase()}</h2>
+        <button
+          onClick={deleteClassWithResources}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        >
+          Delete Class
+        </button>
+      </div>
+
       <p className="mb-2"><strong>Course:</strong> {classData.course_code}</p>
       <p className="mb-2"><strong>Faculty:</strong> {classData.faculty_initial}</p>
       <p className="mb-2"><strong>Semester:</strong> {classData.semester}</p>
@@ -77,7 +108,19 @@ const ClassPage = () => {
 
       {/* Class Resources */}
       <div className="mt-10">
-        <h3 className="text-2xl font-semibold mb-4">Class Resources</h3>
+        <div className='flex justify-between'>
+          <h3 className="text-2xl font-semibold mb-4">Class Resources</h3>
+          <Link
+            to={`/dashboard/uploadmaterial/${class_code}`}
+            state={{
+              class_code: classData.class_code,
+              course_code: classData.course_code,
+            }}
+          >
+            <button className='btn'>Upload Materials</button>
+          </Link>
+        </div>
+
         {resources.length === 0 ? (
           <p className="text-gray-500">No resources added for this class.</p>
         ) : (
@@ -100,7 +143,7 @@ const ClassPage = () => {
                   </a>
                 </div>
                 <button
-                  onClick={() => handleDelete(resource._id)}
+                  onClick={() => handleDeleteResource(resource._id)}
                   className="text-red-500 hover:text-red-700 text-sm"
                 >
                   Delete

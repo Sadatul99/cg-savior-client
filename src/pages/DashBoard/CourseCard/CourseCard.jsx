@@ -69,9 +69,11 @@ const CourseCard = ({ course, refetch }) => {
           >
             <FaTrash />
           </button>
+          <Link to={`/dashboard/courses/updateCourse/${course_code}`}>
           <button className="text-blue-600 hover:text-blue-800" title="Edit Course">
             <FaEdit />
           </button>
+          </Link>
         </div>
       )}
 
@@ -99,12 +101,13 @@ const CourseCard = ({ course, refetch }) => {
 
       {/* View Button */}
       <Link
-        to={`/dashboard/courses/${course._id}`}
+        to={`/dashboard/courses/${course_code.toUpperCase()}`}
         className="mt-auto inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300"
       >
         View
         <FaArrowRight className="text-sm" />
       </Link>
+
     </div>
   );
 };
