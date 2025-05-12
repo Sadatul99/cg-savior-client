@@ -30,9 +30,9 @@ const AllUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .patch(`/users/role/${user._id}`, { role: newRole })
+          .patch(`/users/role/${user.id}`, { role: newRole })
           .then((res) => {
-            if (res.data.modifiedCount > 0) {
+            if (res.data.affectedRows > 0) {
               refetch();
               Swal.fire({
                 position: "top-end",
@@ -58,8 +58,8 @@ const AllUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/users/${user._id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
+        axiosSecure.delete(`/users/${user.id}`).then((res) => {
+          if (res.data.affectedRows > 0) {
             refetch();
             Swal.fire({
               title: "Deleted!",
@@ -95,7 +95,7 @@ const AllUsers = () => {
           {/* Table Body */}
           <tbody>
             {users.map((user, index) => (
-              <tr key={user._id} className="border-b hover:bg-gray-100 transition">
+              <tr key={user.id} className="border-b hover:bg-gray-100 transition">
                 <td className="p-4 font-medium">{index + 1}</td>
                 <td className="p-4">{user.name}</td>
                 <td className="p-4">{user.email}</td>

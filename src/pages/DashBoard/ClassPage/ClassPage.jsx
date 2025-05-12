@@ -54,7 +54,7 @@ const ClassPage = () => {
     if (result.isConfirmed) {
       try {
         await axiosPublic.delete(`/classresources/${id}`);
-        setResources(prev => prev.filter(resource => resource._id !== id));
+        setResources(prev => prev.filter(resource => resource.id !== id));
         Swal.fire('Deleted!', 'Resource has been deleted.', 'success');
       } catch (err) {
         console.error('Failed to delete resource:', err);
@@ -63,21 +63,21 @@ const ClassPage = () => {
     }
   };
 
-  const deleteClassWithResources = async () => {
+  const deleteClass = async () => {
     const result = await Swal.fire({
       title: 'Are you sure?',
-      text: "This class and all its resources will be permanently deleted!",
+      text: "This class will be permanently deleted!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete everything!'
+      confirmButtonText: 'Yes, delete it!'
     });
 
     if (result.isConfirmed) {
       try {
-        await axiosPublic.delete(`/classroom/delete-with-resources/${class_code}`);
-        Swal.fire('Deleted!', 'Class and all resources deleted.', 'success');
+        await axiosPublic.delete(`/classroom/${class_code}`);
+        Swal.fire('Deleted!', 'Class has been deleted.', 'success');
         navigate('/dashboard'); // Redirect after deletion
       } catch (err) {
         console.error('Failed to delete class:', err);
@@ -86,12 +86,36 @@ const ClassPage = () => {
     }
   };
 
+
+  // const deleteClassWithResources = async () => {
+  //   const result = await Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: "This class and all its resources will be permanently deleted!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#d33',
+  //     cancelButtonColor: '#3085d6',
+  //     confirmButtonText: 'Yes, delete everything!'
+  //   });
+
+  //   if (result.isConfirmed) {
+  //     try {
+  //       await axiosPublic.delete(`/classroom/delete-with-resources/${class_code}`);
+  //       Swal.fire('Deleted!', 'Class and all resources deleted.', 'success');
+  //       navigate('/dashboard'); // Redirect after deletion
+  //     } catch (err) {
+  //       console.error('Failed to delete class:', err);
+  //       Swal.fire('Error!', 'Something went wrong.', 'error');
+  //     }
+  //   }
+  // };
+
   if (loading) return <div className="text-center py-10">Loading class details...</div>;
   if (!classData) return <div className="text-center py-10 text-red-500">Class not found</div>;
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="flex justify-between items-center mb-4">
+      {/* <div className="flex justify-between items-center mb-4">
         <h2 className="text-3xl font-bold text-blue-600">{classData.class_code.toUpperCase()}</h2>
         <button
           onClick={deleteClassWithResources}
@@ -99,8 +123,16 @@ const ClassPage = () => {
         >
           Delete Class
         </button>
+      </div> */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-3xl font-bold text-blue-600">{classData.class_code.toUpperCase()}</h2>
+        <button
+          onClick={deleteClass}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        >
+          Delete Class
+        </button>
       </div>
-
       <p className="mb-2"><strong>Course:</strong> {classData.course_code}</p>
       <p className="mb-2"><strong>Faculty:</strong> {classData.faculty_initial}</p>
       <p className="mb-2"><strong>Semester:</strong> {classData.semester}</p>
@@ -143,7 +175,7 @@ const ClassPage = () => {
                   </a>
                 </div>
                 <button
-                  onClick={() => handleDeleteResource(resource._id)}
+                  onClick={() => handleDeleteResource(resource.id)}
                   className="text-red-500 hover:text-red-700 text-sm"
                 >
                   Delete

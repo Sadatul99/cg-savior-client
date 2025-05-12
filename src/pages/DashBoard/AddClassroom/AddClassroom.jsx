@@ -41,18 +41,18 @@ const AddClassroom = () => {
     };
   
     try {
-      // ✅ Step 1: Check if class_code already exists
-      const checkRes = await axiosPublic.get(`/classroom/check-class-code/${classroom.class_code}`);
-      if (checkRes.data.exists) {
-        // ⛔ If exists, set form error
-        setError("class_code", {
-          type: "manual",
-          message: "This Class Code already exists"
-        });
-        return;
-      }
+      // Step 1: Check if class_code already exists
+      // const checkRes = await axiosPublic.get(`/classroom/check-class-code/${classroom.class_code}`);
+      // if (checkRes.data.exists) {
+      //   //  If exists, set form error
+      //   setError("class_code", {
+      //     type: "manual",
+      //     message: "This Class Code already exists"
+      //   });
+      //   return;
+      //}
   
-      // ✅ Step 2: If not exists, create classroom
+      //  Step 2: If not exists, create classroom
       const res = await axiosPublic.post("/classroom", classroom);
       if (res.data.insertedId) {
         Swal.fire({
@@ -79,7 +79,7 @@ const AddClassroom = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
-        {/* ✅ Searchable Course Dropdown */}
+        {/*  Searchable Course Dropdown */}
         <div>
           <label className="block font-medium mb-1">Course Code</label>
           <Controller

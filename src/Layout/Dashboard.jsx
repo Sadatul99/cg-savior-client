@@ -42,16 +42,12 @@ const Dashboard = () => {
               ➕ Add Course
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dashboard/addresource" className={navClass}>
-              <FaPlusCircle /> Add Resources
-            </NavLink>
-          </li>
-          <li>
+          
+          {/* <li>
             <NavLink to="/dashboard/bookmarks" className={navClass}>
               📌 Bookmarked Courses
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to="/dashboard/users" className={navClass}>
               <FaUsers />
@@ -95,6 +91,7 @@ const Dashboard = () => {
               User Home
             </NavLink>
           </li>
+          
           <li>
             <NavLink to="/dashboard/bookmarks" className={navClass}>
               📌 My Bookmarks
@@ -127,6 +124,11 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/courses" className={navClass}>
               <FaSearch /> Courses
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/addresource" className={navClass}>
+              <FaPlusCircle /> Add Resources
             </NavLink>
           </li>
           <li>

@@ -14,14 +14,14 @@ const AddCourse = () => {
 
   const onSubmit = async (data) => {
     const course = {
-      course_code: data.course_code,
-      course_title: data.course_title,
-      pre_requisite: data.pre_requisite,
-      soft_pre_requisite: data.soft_pre_requisite,
-      lab: data.lab,
-      credit: data.credit,
-      course_description: data.course_description
-    }
+    course_code: data.course_code,
+    course_title: data.course_title,
+    pre_requisite: data.pre_requisite || null,
+    soft_pre_requisite: data.soft_pre_requisite || null,
+    lab: data.lab === 'true', 
+    credit: parseFloat(data.credit), 
+    course_description: data.course_description
+  }
 
     const courseRes = await axiosPublic.post('/courses', course);
 
@@ -31,7 +31,7 @@ const AddCourse = () => {
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: `Resource is added successfully.`,
+        title: `course is added successfully.`,
         showConfirmButton: false,
         timer: 1500
       });

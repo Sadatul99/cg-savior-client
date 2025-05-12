@@ -65,7 +65,7 @@ const ResourceTab = ({ items, refetch, isAdmin }) => {
                             {isAdmin && (
                                 <td className="px-4 py-2 border text-center">
                                     <button
-                                        onClick={() => handleDelete(res._id)}
+                                        onClick={() => handleDelete(res.id)}
                                         className="text-red-600 hover:text-red-800"
                                         title="Delete Resource"
                                     >

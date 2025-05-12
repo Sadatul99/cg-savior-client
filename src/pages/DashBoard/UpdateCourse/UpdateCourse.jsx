@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
@@ -6,47 +6,69 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 
 const UpdateCourse = () => {
-    const course =useLoaderData()
-    const navigate = useNavigate()
-    const {
+  const course = useLoaderData();
+  const navigate = useNavigate();
+  const {
     register,
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm();
-  const axiosPublic = useAxiosPublic()
+  } = useForm({
+    defaultValues: {
+      course_code: course.course_code,
+      course_title: course.course_title,
+      pre_requisite: course.pre_requisite || '',
+      soft_pre_requisite: course.soft_pre_requisite || '',
+      lab: course.lab ? 'true' : 'false',
+      credit: course.credit.toString(),
+      course_description: course.course_description
+    }
+  });
+  
+  const axiosPublic = useAxiosPublic();
 
   const onSubmit = async (data) => {
-    const updatedCourse = {
-      course_code: data.course_code,
-      course_title: data.course_title,
-      pre_requisite: data.pre_requisite,
-      soft_pre_requisite: data.soft_pre_requisite,
-      lab: data.lab,
-      credit: data.credit,
-      course_description: data.course_description
-    }
+    try {
+      const updatedCourse = {
+        course_title: data.course_title,
+        pre_requisite: data.pre_requisite || null,
+        soft_pre_requisite: data.soft_pre_requisite || null,
+        lab: data.lab === 'true',
+        credit: parseFloat(data.credit),
+        course_description: data.course_description
+      };
 
-    const courseRes = await axiosPublic.patch(`/courses/${course.course_code}`, updatedCourse);
-    // console.log(courseRes)
+      const courseRes = await axiosPublic.patch(`/courses/${course.course_code}`, updatedCourse);
 
-    if (courseRes.data.modifiedCount) {
-      reset();
+      if (courseRes.data.modifiedCount) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Course updated successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        reset();
+        navigate(-1);
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "No changes detected",
+          text: "The course information remains unchanged"
+        });
+      }
+    } catch (error) {
+      console.error('Update error:', error);
       Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: `Resource is updated successfully.`,
-        showConfirmButton: false,
-        timer: 1500
+        icon: "error",
+        title: "Update failed",
+        text: error.response?.data?.message || 'Failed to update course'
       });
-      navigate(-1)
     }
-    
-    
   };
 
-    return (
-        <div className="max-w-3xl mx-auto p-6  rounded-xl shadow-md">
+  return (
+    <div className="max-w-3xl mx-auto p-6  rounded-xl shadow-md">
       <SectionTitle heading="Update Course" subHeading="Refresh info" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -55,12 +77,11 @@ const UpdateCourse = () => {
         <div>
           <label className="block font-medium mb-1">Course Code</label>
           <input
-            defaultValue={course.course_code}
             type="text"
-            {...register("course_code", { required: "Course Code is required" })}
-            className="input input-bordered w-full"
+            {...register("course_code")}
+            className="input input-bordered w-full bg-gray-100"
+            readOnly
           />
-          {errors.course_code && <p className="text-red-500 text-sm mt-1">{errors.course_code.message}</p>}
         </div>
 
         {/* course title */}
@@ -102,8 +123,8 @@ const UpdateCourse = () => {
           <div>
             <label className="block font-medium mb-1">Lab</label>
             <select
-            defaultValue={course.lab}
-             {...register("lab")} className="select select-bordered w-full">
+              defaultValue={course.lab}
+              {...register("lab")} className="select select-bordered w-full">
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
@@ -113,7 +134,7 @@ const UpdateCourse = () => {
           <div>
             <label className="block font-medium mb-1">Credit</label>
             <input
-                defaultValue={course.credit}
+              defaultValue={course.credit}
               type="number"
               step="1"
               {...register("credit", { required: "Credit is required" })}
@@ -145,7 +166,7 @@ const UpdateCourse = () => {
 
       </form>
     </div>
-    );
+  );
 };
 
 export default UpdateCourse;
