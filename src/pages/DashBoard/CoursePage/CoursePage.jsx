@@ -23,7 +23,6 @@ const CoursePage = () => {
 
   const {
     course_title,
-    course_description,
     credit,
     pre_requisite,
     soft_pre_requisite,
@@ -50,11 +49,6 @@ const CoursePage = () => {
           <div className="text-gray-700 space-y-1 mb-4">
             <p><span className="font-medium">Pre-requisite:</span> {pre_requisite === "N/A" ? "None" : pre_requisite}</p>
             <p><span className="font-medium">Soft Pre-requisite:</span> {soft_pre_requisite === "N/A" ? "None" : soft_pre_requisite}</p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">Course Description</h2>
-            <p className="text-gray-700 leading-relaxed whitespace-pre-line">{course_description}</p>
           </div>
         </div>
       </div>

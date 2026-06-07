@@ -20,8 +20,7 @@ const UpdateCourse = () => {
       pre_requisite: course.pre_requisite || '',
       soft_pre_requisite: course.soft_pre_requisite || '',
       lab: course.lab ? 'true' : 'false',
-      credit: course.credit.toString(),
-      course_description: course.course_description
+      credit: course.credit.toString()
     }
   });
   
@@ -34,8 +33,7 @@ const UpdateCourse = () => {
         pre_requisite: data.pre_requisite || null,
         soft_pre_requisite: data.soft_pre_requisite || null,
         lab: data.lab === 'true',
-        credit: parseFloat(data.credit),
-        course_description: data.course_description
+        credit: parseFloat(data.credit)
       };
 
       const courseRes = await axiosPublic.patch(`/courses/${course.course_code}`, updatedCourse);
@@ -142,18 +140,6 @@ const UpdateCourse = () => {
             />
             {errors.credit && <p className="text-red-500 text-sm mt-1">{errors.credit.message}</p>}
           </div>
-        </div>
-
-        {/*course_description  */}
-        <div>
-          <label className="block font-medium mb-1">Course Description</label>
-          <textarea
-            defaultValue={course.course_description}
-            {...register("course_description", { required: "Description is required" })}
-            rows="5"
-            className="textarea textarea-bordered w-full"
-          ></textarea>
-          {errors.course_description && <p className="text-red-500 text-sm mt-1">{errors.course_description.message}</p>}
         </div>
 
         <button
