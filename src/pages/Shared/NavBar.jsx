@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import AnimatedLogo from "../../components/AnimatedLogo/AnimatedLogo";
-import ThemeToggle from "../../components/ThemeToggle/ThemeToggle";
+// import ThemeToggle from "../../components/ThemeToggle/ThemeToggle";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -44,7 +44,7 @@ const NavBar = () => {
       </div>
 
       <div className="navbar-end flex gap-3">
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
         {user ? (
           <button onClick={handleLogOut} className="btn btn-ghost">LogOut</button>
         ) : (

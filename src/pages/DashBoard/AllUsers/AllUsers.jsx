@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaTrashAlt, FaUsers, FaChalkboardTeacher, FaArrowDown } from "react-icons/fa";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const AllUsers = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users", {
+      const res = await axiosPublic.get("/users", {
         headers: {
           authorization: `Bearer ${localStorage.getItem('access-token')}`
         }
@@ -29,10 +30,10 @@ const AllUsers = () => {
       confirmButtonText: "Yes, do it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure
-          .patch(`/users/role/${user.id}`, { role: newRole })
+        axiosPublic
+          .patch(`/users/role/${user._id}`, { role: newRole })   
           .then((res) => {
-            if (res.data.affectedRows > 0) {
+            if (res.data.modifiedCount > 0) {   
               refetch();
               Swal.fire({
                 position: "top-end",
@@ -43,6 +44,7 @@ const AllUsers = () => {
               });
             }
           });
+
       }
     });
   };
@@ -80,9 +82,9 @@ const AllUsers = () => {
       </div>
 
       <div className="overflow-x-auto rounded-lg shadow-lg">
-        <table className="w-full border-collapse bg-white text-gray-800">
+        <table className="w-full border-collapse ">
           {/* Table Head */}
-          <thead className="bg-gray-200 text-gray-900">
+          <thead className="">
             <tr>
               <th className="p-4 text-left">#</th>
               <th className="p-4 text-left">Name</th>
@@ -95,7 +97,7 @@ const AllUsers = () => {
           {/* Table Body */}
           <tbody>
             {users.map((user, index) => (
-              <tr key={user.id} className="border-b hover:bg-gray-100 transition">
+              <tr key={user.id} className="border-b hover:bg-gray-100 hover:text-black transition">
                 <td className="p-4 font-medium">{index + 1}</td>
                 <td className="p-4">{user.name}</td>
                 <td className="p-4">{user.email}</td>

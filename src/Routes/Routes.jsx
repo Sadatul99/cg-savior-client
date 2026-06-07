@@ -2,7 +2,6 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import Main from "../Layout/Main";
-import Home from "../pages/Home/Home";
 import OurTeam from "../pages/Our Team/OurTeam";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
@@ -24,16 +23,20 @@ import ClassCollection from "../pages/DashBoard/ClassCollection/ClassCollection"
 import ClassPage from "../pages/DashBoard/ClassPage/ClassPage";
 import AddClassMaterial from "../pages/DashBoard/AddClassMaterial/AddClassMaterial";
 import UpdateCourse from "../pages/DashBoard/UpdateCourse/UpdateCourse";
+import PreRegistration from "../pages/DashBoard/PreRegistration/PreRegistration";
+import Feedback from "../pages/Feedback/Feedback";
+import ThemeProvider from "../providers/ThemeProvider";
+import AIRoutineBuilder from "../pages/DashBoard/AIRoutineBuilder/AIRoutineBuilder";
+import PublicRoute from "./PublicRoute";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
     element: <Main />,
     // errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <Home /> },
+      { path: "/", element: <PublicRoute><Login /></PublicRoute> },
       { path: "our-team", element: <OurTeam /> },
-      { path: "login", element: <Login /> },
+      { path: "login", element: <PublicRoute><Login /></PublicRoute> },
       { path: "signup", element: <SignUp /> }
     ],
   },
@@ -58,7 +61,7 @@ export const router = createBrowserRouter([
        },
       { path: "courses/updateCourse/:course_code", 
         element: <UpdateCourse></UpdateCourse>,
-        loader: ({params}) => fetch(`http://localhost:5000/courses/${params.course_code}`)
+        loader: ({params}) => fetch(`http://localhost:5001/courses/${params.course_code}`)
        },
       { path: "bookmarks", 
         element: <BookmarkedCourses />
@@ -66,6 +69,15 @@ export const router = createBrowserRouter([
        { path: "addresource",  
          element: <AddResource />
        },
+       { path: "feedback",  
+        element: <Feedback></Feedback>
+      },
+      { path: "PreRegistration",  
+        element: <PreRegistration />
+      },
+      { path: "airoutinebuilder",  
+        element: <AIRoutineBuilder></AIRoutineBuilder>
+      },
 
       // Admin-only routes
       { path: "users", 

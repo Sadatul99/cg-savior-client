@@ -4,7 +4,7 @@ const useCourses = () => {
   const { data: courses = [], refetch } = useQuery({
     queryKey: ['courses'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/courses');
+      const res = await fetch('http://localhost:5001/courses');
       return res.json();
     },
   });
