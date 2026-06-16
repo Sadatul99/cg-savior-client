@@ -120,7 +120,7 @@ const Dashboard = () => {
 
           {/* RIGHT SIDE — THEME + PROFILE */}
           <div className="ml-auto flex items-center gap-4 relative">
-            <div className="flex justify-center mb-4">
+            <div className="hidden lg:flex justify-center mb-4">
               <AIScheduleButton />
             </div>
             <ThemeToggle />

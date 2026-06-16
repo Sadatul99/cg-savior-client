@@ -14,17 +14,18 @@ const AddCourse = () => {
 
   const onSubmit = async (data) => {
     const course = {
-    course_code: data.course_code,
-    course_title: data.course_title,
-    pre_requisite: data.pre_requisite || null,
-    soft_pre_requisite: data.soft_pre_requisite || null,
-    lab: data.lab === 'true', 
-    credit: parseFloat(data.credit)
-  }
+      course_code: data.course_code,
+      course_title: data.course_title,
+      pre_requisite: data.pre_requisite || null,
+      soft_pre_requisite: data.soft_pre_requisite || null,
+      lab: data.lab === 'true',
+      credit: parseFloat(data.credit)
+    }
 
     const courseRes = await axiosPublic.post('/courses', course);
+    console.log(courseRes.data);
 
-    if (courseRes.data.insertedId) {
+    if (courseRes.data._id) {
       reset();
       // show success popup
       Swal.fire({
@@ -36,7 +37,7 @@ const AddCourse = () => {
       });
     }
     // console.log(course)
-    
+
   };
 
   return (
@@ -119,6 +120,7 @@ const AddCourse = () => {
 
 
       </form>
+      
     </div>
   );
 };

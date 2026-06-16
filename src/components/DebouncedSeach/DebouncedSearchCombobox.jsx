@@ -31,7 +31,7 @@ const DebouncedSearchCombobox = ({ value, onChange, allCourses }) => {
                         displayValue={(v) => v}
                         placeholder="Search course code"
                     />
-                    <Combobox.Options className="absolute z-10 bg-white w-full mt-1 max-h-60 overflow-auto border rounded shadow">
+                    <Combobox.Options className="absolute z-10 bg-white text-black w-full mt-1 max-h-60 overflow-auto border rounded shadow">
                         {filtered.map((course) => (
                             <Combobox.Option
                                 key={course}
