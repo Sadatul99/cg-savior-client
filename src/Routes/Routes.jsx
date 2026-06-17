@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
        },
       { path: "courses/updateCourse/:course_code", 
         element: <UpdateCourse></UpdateCourse>,
-        loader: ({params}) => fetch(`http://localhost:5001/courses/${params.course_code}`)
+        loader: ({params}) => fetch(`https://cg-savior-server.vercel.app/courses/${params.course_code}`)
        },
       { path: "bookmarks", 
         element: <BookmarkedCourses />
