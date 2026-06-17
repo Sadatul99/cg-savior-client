@@ -32,7 +32,7 @@ const SocialLogin = () => {
                 <button
                     onClick={handleGoogleSignIn}
                     type="button"
-                    className="w-full mt-4 flex items-center justify-center gap-2 border p-2 rounded-lg hover:bg-gray-100 transition"
+                    className="w-full mt-4 flex items-center justify-center gap-2 border p-2 rounded-lg cursor-pointer hover: transition"
                 >
                     <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo" className="h-5 w-5" />
                     <span>Login/Signup with Google</span>

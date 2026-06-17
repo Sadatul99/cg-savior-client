@@ -26,13 +26,12 @@ import UpdateCourse from "../pages/DashBoard/UpdateCourse/UpdateCourse";
 import PreRegistration from "../pages/DashBoard/PreRegistration/PreRegistration";
 import Feedback from "../pages/Feedback/Feedback";
 import ThemeProvider from "../providers/ThemeProvider";
-import AIRoutineBuilder from "../pages/DashBoard/AIRoutineBuilder/AIRoutineBuilder";
 import PublicRoute from "./PublicRoute";
 
 export const router = createBrowserRouter([
   {
     element: <Main />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <PublicRoute><Login /></PublicRoute> },
       { path: "our-team", element: <OurTeam /> },
@@ -43,7 +42,7 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <PrivateRoute><Dashboard /></PrivateRoute>,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       // Dashboard Home (Admin, Faculty or User home)
       { 
@@ -75,9 +74,7 @@ export const router = createBrowserRouter([
       { path: "PreRegistration",  
         element: <PreRegistration />
       },
-      { path: "airoutinebuilder",  
-        element: <AIRoutineBuilder></AIRoutineBuilder>
-      },
+      
 
       // Admin-only routes
       { path: "users", 

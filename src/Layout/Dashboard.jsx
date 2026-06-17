@@ -6,7 +6,7 @@ import useAdmin from "../hooks/useAdmin";
 import useFaculty from "../hooks/useFaculty";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import AIScheduleButton from "../components/AIScheduleButton/AIScheduleButton";
+
 
 const Dashboard = () => {
   const [isAdmin, adminLoading] = useAdmin();
@@ -120,9 +120,7 @@ const Dashboard = () => {
 
           {/* RIGHT SIDE — THEME + PROFILE */}
           <div className="ml-auto flex items-center gap-4 relative">
-            <div className="hidden lg:flex justify-center mb-4">
-              <AIScheduleButton />
-            </div>
+            
             <ThemeToggle />
             {/* Profile Avatar + Dropdown */}
             {user ? (

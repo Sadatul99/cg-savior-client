@@ -48,8 +48,8 @@ const Login = () => {
     <Helmet>
         <title>Login</title>
     </Helmet>
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-96">
+    <div className="flex items-center justify-center min-h-screen ">
+      <div className=" shadow-lg rounded-2xl p-8 w-96">
         <h2 className="text-2xl font-semibold text-center text-blue-600">Login</h2>
 
         <form onSubmit={handleLogin} className="mt-6">
@@ -61,6 +61,7 @@ const Login = () => {
               className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your email"
               required
+              disabled
             />
           </div>
           <div className="mb-4">
@@ -71,15 +72,16 @@ const Login = () => {
               className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your password"
               required
+              disabled
             />
           </div>
 
-          <button
+          {/* <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition disabled"
           >
             Login
-          </button>
+          </button> */}
 
           <div className="mt-4 flex items-center justify-center gap-2">
             <div className="w-full h-px bg-gray-300"></div>
@@ -89,9 +91,9 @@ const Login = () => {
 
           <SocialLogin></SocialLogin>
 
-          <p className="mt-4 text-sm text-center text-gray-500">
+          {/* <p className="mt-4 text-sm text-center text-gray-500">
             Don't have an account? <Link to='/signup' className="text-blue-500 hover:underline">Sign Up</Link>
-          </p>
+          </p> */}
         </form>
       </div>
     </div>

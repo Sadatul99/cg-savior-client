@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "cg-savior",
+    "prod": "cg-savior"
+  },
+  "targets": {},
+  "etags": {}
+}
