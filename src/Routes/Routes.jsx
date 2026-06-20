@@ -27,6 +27,8 @@ import PreRegistration from "../pages/DashBoard/PreRegistration/PreRegistration"
 import Feedback from "../pages/Feedback/Feedback";
 import ThemeProvider from "../providers/ThemeProvider";
 import PublicRoute from "./PublicRoute";
+// import Airoutine from "../pages/DashBoard/Airoutine/Airoutine";
+import RoutineBuilder from "../components/RoutineBuilder";
 
 export const router = createBrowserRouter([
   {
@@ -82,6 +84,9 @@ export const router = createBrowserRouter([
       },
       { path: "addcourse", 
         element: <AddCourse />
+      },
+      { path: "RoutineBuilder", 
+        element: <RoutineBuilder />
       },
 
       // Faculty routes

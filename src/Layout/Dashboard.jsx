@@ -1,4 +1,4 @@
-import { FaHome, FaSearch, FaUsers, FaPlusCircle, FaSignOutAlt, FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import { FaHome, FaSearch, FaUsers, FaPlusCircle, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaStar } from "react-icons/fa";
 import { NavLink, Outlet, Link } from "react-router-dom";
 import AnimatedLogo from "../components/AnimatedLogo/AnimatedLogo";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
@@ -47,6 +47,11 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/users" className={navClass}>
               <FaUsers /> All Users
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/RoutineBuilder" className={navClass}>
+              <FaStar /> ai Routine Generator
             </NavLink>
           </li>
         </>
