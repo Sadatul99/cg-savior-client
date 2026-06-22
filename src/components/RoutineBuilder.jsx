@@ -149,7 +149,7 @@ const RoutineBuilder = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl md:text-3xl font-bold text-center">🤖 AI Routine Builder</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-center"> AI Routine Builder</h1>
       <p className="text-center text-gray-600">
         Select 2-6 courses, choose faculty preferences for each, and the AI will find the best sections
       </p>
