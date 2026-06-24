@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cg-savior.web.app/sitemap.xml

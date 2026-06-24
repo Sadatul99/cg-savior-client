@@ -5,7 +5,12 @@ const Home = () => {
   return (
     <div>
       <Helmet>
-        <title>Home</title>
+        <title>CG Savior - Academic Routine and Course Planner</title>
+        <meta
+          name="description"
+          content="CG Savior helps students plan courses, build routines, manage academic resources, and stay organized throughout the semester."
+        />
+        <link rel="canonical" href="https://cg-savior.web.app/" />
       </Helmet>
 
       <main className="min-h-screen bg-white flex items-center justify-center px-8 py-20">

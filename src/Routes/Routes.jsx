@@ -27,6 +27,7 @@ import PreRegistration from "../pages/DashBoard/PreRegistration/PreRegistration"
 import Feedback from "../pages/Feedback/Feedback";
 import ThemeProvider from "../providers/ThemeProvider";
 import PublicRoute from "./PublicRoute";
+import Home from "../pages/Home/Home";
 // import Airoutine from "../pages/DashBoard/Airoutine/Airoutine";
 import RoutineBuilder from "../components/RoutineBuilder";
 
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
     element: <Main />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <PublicRoute><Login /></PublicRoute> },
+      { path: "/", element: <Home /> },
       { path: "our-team", element: <OurTeam /> },
       { path: "login", element: <PublicRoute><Login /></PublicRoute> },
       { path: "signup", element: <SignUp /> }
