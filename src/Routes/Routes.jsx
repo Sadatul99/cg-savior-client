@@ -77,6 +77,9 @@ export const router = createBrowserRouter([
       { path: "PreRegistration",  
         element: <PreRegistration />
       },
+      { path: "RoutineBuilder", 
+        element: <RoutineBuilder />
+      },
       
 
       // Admin-only routes
@@ -86,9 +89,7 @@ export const router = createBrowserRouter([
       { path: "addcourse", 
         element: <AddCourse />
       },
-      { path: "RoutineBuilder", 
-        element: <RoutineBuilder />
-      },
+      
 
       // Faculty routes
       { path: "addclassroom",  

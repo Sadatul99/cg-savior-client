@@ -1,4 +1,5 @@
-import { FaHome, FaSearch, FaUsers, FaPlusCircle, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaStar } from "react-icons/fa";
+import { FaHome, FaSearch, FaUsers, FaPlusCircle, FaSignOutAlt, FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import { BsLightningFill } from "react-icons/bs";
 import { NavLink, Outlet, Link } from "react-router-dom";
 import AnimatedLogo from "../components/AnimatedLogo/AnimatedLogo";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
@@ -20,7 +21,7 @@ const Dashboard = () => {
 
   if (adminLoading || facultyLoading) {
     return (
-      <div className="flex items-center justify-center h-screen text-white">
+      <div className="flex items-center justify-center h-screen">
         Checking access...
       </div>
     );
@@ -49,11 +50,7 @@ const Dashboard = () => {
               <FaUsers /> All Users
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dashboard/RoutineBuilder" className={navClass}>
-              <FaStar /> ai Routine Generator
-            </NavLink>
-          </li>
+          
         </>
       );
     } else if (isFaculty) {
@@ -207,6 +204,11 @@ const Dashboard = () => {
                 🪑 Seat Status
               </NavLink>
             </li>
+            <li>
+            <NavLink to="/dashboard/RoutineBuilder" className={navClass}>
+              <BsLightningFill/> AI Routine Builder
+            </NavLink>
+          </li>
             <li>
               <NavLink to="/dashboard/feedback" className={navClass}>
                 ✉️ Feedback
