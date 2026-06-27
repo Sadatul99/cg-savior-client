@@ -132,11 +132,6 @@ const Dashboard = () => {
                         <div className="divider before:bg-gray-700 after:bg-gray-700"></div>
 
                         <li>
-                            <NavLink to="/" className={navClass}>
-                                <FaHome /> Home
-                            </NavLink>
-                        </li>
-                        <li>
                             <NavLink to="/dashboard/courses" className={navClass}>
                                 <FaSearch /> Courses
                             </NavLink>

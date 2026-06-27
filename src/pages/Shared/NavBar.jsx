@@ -13,10 +13,7 @@ const NavBar = () => {
 
   const navLinks = (
     <>
-      <li><Link to="/" className="hover:text-blue-500">Home</Link></li>
       <li><Link to="/dashboard" className="hover:text-blue-500">Dashboard</Link></li>
-      <li><Link to="/our-team" className="hover:text-blue-500">Our Team</Link></li>
-      <li><Link to="/courses" className="hover:text-blue-500">Courses</Link></li>
     </>
   );
 
@@ -50,7 +47,6 @@ const NavBar = () => {
         ) : (
           <>
             <Link to="/login" className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition">Login</Link>
-            <Link to="/signup" className="px-4 py-2 rounded-lg border border-white hover:bg-gray-700 transition">Sign Up</Link>
           </>
         )}
       </div>

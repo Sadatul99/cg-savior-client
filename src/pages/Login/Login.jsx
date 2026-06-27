@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from 'sweetalert2'
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const from = location.state?.from?.pathname || "/"
+  const from = location.state?.from?.pathname || "/dashboard"
 
   const handleLogin = event => {
     event.preventDefault();
@@ -90,10 +90,6 @@ const Login = () => {
           </div>
 
           <SocialLogin></SocialLogin>
-
-          {/* <p className="mt-4 text-sm text-center text-gray-500">
-            Don't have an account? <Link to='/signup' className="text-blue-500 hover:underline">Sign Up</Link>
-          </p> */}
         </form>
       </div>
     </div>

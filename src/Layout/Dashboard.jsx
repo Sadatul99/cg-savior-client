@@ -1,6 +1,6 @@
-import { FaHome, FaSearch, FaUsers, FaPlusCircle, FaSignOutAlt, FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import { FaHome, FaSearch, FaUsers, FaPlusCircle, FaSignOutAlt } from "react-icons/fa";
 import { BsLightningFill } from "react-icons/bs";
-import { NavLink, Outlet, Link } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import AnimatedLogo from "../components/AnimatedLogo/AnimatedLogo";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 import useAdmin from "../hooks/useAdmin";
@@ -157,16 +157,7 @@ const Dashboard = () => {
                   </ul>
                 )}
               </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link to="/login" className="btn btn-sm btn-outline gap-2">
-                  <FaSignInAlt /> Login
-                </Link>
-                <Link to="/signup" className="btn btn-sm btn-primary gap-2">
-                  <FaUserPlus /> Sign Up
-                </Link>
-              </div>
-            )}
+            ) : null}
           </div>
         </nav>
 
@@ -184,11 +175,6 @@ const Dashboard = () => {
 
             <div className="divider"></div>
 
-            <li>
-              <NavLink to="/" className={navClass}>
-                <FaHome /> Home
-              </NavLink>
-            </li>
             <li>
               <NavLink to="/dashboard/courses" className={navClass}>
                 <FaSearch /> Courses

@@ -1,22 +1,18 @@
 import {
   createBrowserRouter,
+  Navigate,
 } from "react-router-dom";
 import Main from "../Layout/Main";
-import OurTeam from "../pages/Our Team/OurTeam";
 import Login from "../pages/Login/Login";
-import SignUp from "../pages/SignUp/SignUp";
 import Courses from "../pages/DashBoard/courses/courses";
 import Dashboard from "../Layout/Dashboard";
 import BookmarkedCourses from "../pages/DashBoard/BookmarkedCourses/BookmarkedCourses";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AllUsers from "../pages/DashBoard/AllUsers/AllUsers";
-import AdminHome from "../pages/DashBoard/AdminHome/AdminHome";
 import AddCourse from "../pages/DashBoard/AddCourse/AddCourse";
 import AddResource from "../pages/DashBoard/AddResource/AddResource";
-import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import CoursePage from "../pages/DashBoard/CoursePage/CoursePage";
-import FacultyHome from "../pages/DashBoard/FacultyHome/FacultyHome";
 import DashboardHome from "../components/DashboardHome/DashboardHome";
 import AddClassroom from "../pages/DashBoard/AddClassroom/AddClassroom";
 import ClassCollection from "../pages/DashBoard/ClassCollection/ClassCollection";
@@ -25,9 +21,7 @@ import AddClassMaterial from "../pages/DashBoard/AddClassMaterial/AddClassMateri
 import UpdateCourse from "../pages/DashBoard/UpdateCourse/UpdateCourse";
 import PreRegistration from "../pages/DashBoard/PreRegistration/PreRegistration";
 import Feedback from "../pages/Feedback/Feedback";
-import ThemeProvider from "../providers/ThemeProvider";
 import PublicRoute from "./PublicRoute";
-import Home from "../pages/Home/Home";
 // import Airoutine from "../pages/DashBoard/Airoutine/Airoutine";
 import RoutineBuilder from "../components/RoutineBuilder";
 import AcademicDates from "../pages/DashBoard/AcademicDates/AcademicDates";
@@ -37,10 +31,10 @@ export const router = createBrowserRouter([
     element: <Main />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "our-team", element: <OurTeam /> },
+      { path: "/", element: <PublicRoute><Login /></PublicRoute> },
+      { path: "our-team", element: <Navigate to="/" replace /> },
       { path: "login", element: <PublicRoute><Login /></PublicRoute> },
-      { path: "signup", element: <SignUp /> }
+      { path: "signup", element: <Navigate to="/" replace /> }
     ],
   },
   {
