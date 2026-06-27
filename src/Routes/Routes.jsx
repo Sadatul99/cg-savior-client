@@ -30,6 +30,7 @@ import PublicRoute from "./PublicRoute";
 import Home from "../pages/Home/Home";
 // import Airoutine from "../pages/DashBoard/Airoutine/Airoutine";
 import RoutineBuilder from "../components/RoutineBuilder";
+import AcademicDates from "../pages/DashBoard/AcademicDates/AcademicDates";
 
 export const router = createBrowserRouter([
   {
@@ -80,7 +81,9 @@ export const router = createBrowserRouter([
       { path: "RoutineBuilder", 
         element: <RoutineBuilder />
       },
-      
+      { path: "AcademicDates", 
+        element: <AcademicDates />
+      },
 
       // Admin-only routes
       { path: "users", 

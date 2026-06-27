@@ -215,7 +215,7 @@ const Dashboard = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/dates" className={navClass}>
+              <NavLink to="/dashboard/AcademicDates" className={navClass}>
                 🗓️ Academic Dates
               </NavLink>
             </li>
