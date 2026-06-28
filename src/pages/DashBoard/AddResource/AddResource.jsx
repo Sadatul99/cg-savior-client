@@ -10,11 +10,13 @@ const AddResource = () => {
         register, 
         handleSubmit, 
         setValue,
+        watch,
         reset,
         formState: { errors, isSubmitting } 
     } = useForm({
         defaultValues: {
-            vote: 0
+            vote: 0,
+            submissionFormat: ""
         }
     });
     
@@ -22,15 +24,48 @@ const AddResource = () => {
     const [selectedCode, setSelectedCode] = useState('');
     const [isLoadingCourses, setIsLoadingCourses] = useState(true);
     const axiosPublic = useAxiosPublic();
+    const selectedType = watch("type");
+    const submissionFormat = selectedType === "youtube" ? "link" : watch("submissionFormat");
 
     const onSubmit = async (data) => {
         try {
+            let resourceLink = data.link;
+            let uploadedFileName = null;
+
+            if (data.type === "youtube") {
+                resourceLink = data.link;
+            } else if (data.submissionFormat === "image" || data.submissionFormat === "file") {
+                const selectedFile = data.resourceFile?.[0];
+
+                if (!selectedFile) {
+                    throw new Error("Please choose a file before submitting.");
+                }
+
+                if (data.submissionFormat === "image" && !selectedFile.type.startsWith("image/")) {
+                    throw new Error("Please choose a valid image file.");
+                }
+
+                const formData = new FormData();
+                formData.append("file", selectedFile);
+
+                const uploadRes = await axiosPublic.post("/resources/upload-to-drive", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+
+                resourceLink = uploadRes.data.link;
+                uploadedFileName = selectedFile.name;
+            }
+
             const resource = {
                 course_code: data.course_code,
                 description: data.description,
                 publishers_name: data.publishers_name || null,
                 type: data.type,
-                link: data.link,
+                link: resourceLink,
+                submission_format: data.type === "youtube" ? "link" : data.submissionFormat,
+                uploaded_file_name: uploadedFileName,
                 vote: 0
             };
 
@@ -45,6 +80,7 @@ const AddResource = () => {
                     timer: 1500
                 });
                 reset();
+                setSelectedCode('');
             }
         } catch (error) {
             console.error('Error adding resource:', error);
@@ -55,6 +91,8 @@ const AddResource = () => {
                 if (error.response.data.error) {
                     errorMessage += `: ${error.response.data.error}`;
                 }
+            } else if (error.message) {
+                errorMessage = error.message;
             }
 
             Swal.fire({
@@ -87,6 +125,23 @@ const AddResource = () => {
     useEffect(() => {
         setValue("course_code", selectedCode, { shouldValidate: true });
     }, [selectedCode, setValue]);
+
+    useEffect(() => {
+        if (selectedType === "youtube") {
+            setValue("submissionFormat", "link", { shouldValidate: true });
+        } else {
+            setValue("link", "");
+            setValue("resourceFile", null);
+        }
+    }, [selectedType, setValue]);
+
+    useEffect(() => {
+        if (submissionFormat === "link") {
+            setValue("resourceFile", null);
+        } else if (submissionFormat === "image" || submissionFormat === "file") {
+            setValue("link", "");
+        }
+    }, [submissionFormat, setValue]);
 
     return (
         <div className="max-w-3xl mx-auto p-6 rounded-xl shadow-md">
@@ -136,25 +191,6 @@ const AddResource = () => {
                 </div>
 
                 <div>
-                    <label className="block mb-1 font-semibold">Paste Your Link *</label>
-                    <input 
-                        {...register("link", { 
-                            required: "Link is required",
-                            pattern: {
-                                value: /^(https?:\/\/).+/,
-                                message: "Link must start with http:// or https://"
-                            }
-                        })} 
-                        className="w-full border p-2 rounded"
-                        placeholder="https://example.com/resource"
-                        type="url"
-                    />
-                    {errors.link && (
-                        <p className="text-red-500 text-sm mt-1">{errors.link.message}</p>
-                    )}
-                </div>
-
-                <div>
                     <label className="block mb-1 font-semibold">Publisher's Name</label>
                     <input 
                         {...register("publishers_name")} 
@@ -183,6 +219,79 @@ const AddResource = () => {
                         <p className="text-red-500 text-sm mt-1">{errors.type.message}</p>
                     )}
                 </div>
+
+                {selectedType && selectedType !== "youtube" && (
+                    <div>
+                        <label className="block mb-2 font-semibold">Submission Format *</label>
+                        <div className="grid gap-3 sm:grid-cols-3">
+                            {[
+                                { value: "image", label: "Image" },
+                                { value: "file", label: "File" },
+                                { value: "link", label: "Link" },
+                            ].map((option) => (
+                                <label
+                                    key={option.value}
+                                    className={`border rounded p-3 cursor-pointer text-center ${
+                                        submissionFormat === option.value ? "border-blue-500 bg-blue-50" : "hover:bg-gray-50"
+                                    }`}
+                                >
+                                    <input
+                                        type="radio"
+                                        value={option.value}
+                                        className="sr-only"
+                                        {...register("submissionFormat", {
+                                            required: selectedType !== "youtube" ? "Please select a submission format" : false
+                                        })}
+                                    />
+                                    {option.label}
+                                </label>
+                            ))}
+                        </div>
+                        {errors.submissionFormat && (
+                            <p className="text-red-500 text-sm mt-1">{errors.submissionFormat.message}</p>
+                        )}
+                    </div>
+                )}
+
+                {(selectedType === "youtube" || submissionFormat === "link") && (
+                    <div>
+                        <label className="block mb-1 font-semibold">Paste Your Link *</label>
+                        <input 
+                            {...register("link", { 
+                                required: (selectedType === "youtube" || submissionFormat === "link") ? "Link is required" : false,
+                                pattern: {
+                                    value: /^(https?:\/\/).+/,
+                                    message: "Link must start with http:// or https://"
+                                }
+                            })} 
+                            className="w-full border p-2 rounded"
+                            placeholder={selectedType === "youtube" ? "https://youtube.com/playlist?list=..." : "https://example.com/resource"}
+                            type="url"
+                        />
+                        {errors.link && (
+                            <p className="text-red-500 text-sm mt-1">{errors.link.message}</p>
+                        )}
+                    </div>
+                )}
+
+                {(submissionFormat === "image" || submissionFormat === "file") && (
+                    <div>
+                        <label className="block mb-1 font-semibold">
+                            {submissionFormat === "image" ? "Choose Image *" : "Choose File *"}
+                        </label>
+                        <input
+                            type="file"
+                            accept={submissionFormat === "image" ? "image/*" : undefined}
+                            {...register("resourceFile", {
+                                required: "Please choose a file before submitting"
+                            })}
+                            className="w-full border p-2 rounded bg-white"
+                        />
+                        {errors.resourceFile && (
+                            <p className="text-red-500 text-sm mt-1">{errors.resourceFile.message}</p>
+                        )}
+                    </div>
+                )}
 
                 <button 
                     type="submit" 
