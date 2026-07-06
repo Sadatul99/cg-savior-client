@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "cg-savior",
-    "prod": "cg-savior"
+    "default": "cg-savior7",
+    "prod": "cg-savior7"
   },
   "targets": {},
   "etags": {}
