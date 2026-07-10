@@ -45,23 +45,43 @@ const AddResource = () => {
                     throw new Error("Please choose a valid image file.");
                 }
 
-                // Server (Render) allows up to 100MB uploads
-                const MAX_FILE_SIZE = 100 * 1024 * 1024;
+                // Server/Proxy allows up to ~50MB uploads before timeout/limits
+                const MAX_FILE_SIZE = 50 * 1024 * 1024;
                 if (selectedFile.size > MAX_FILE_SIZE) {
-                    throw new Error("File size exceeds the 100MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.");
+                    throw new Error("File size exceeds the 50MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.");
                 }
 
-                const formData = new FormData();
-                formData.append("file", selectedFile);
-
-                const uploadRes = await axiosPublic.post("/resources/upload-to-drive", formData, {
+                const { name, type } = selectedFile;
+                
+                // 1. Get resumable upload URL from our backend
+                const urlRes = await axiosPublic.post("/resources/generate-upload-url", {
+                    originalname: name,
+                    mimetype: type || "application/octet-stream"
+                });
+                
+                const uploadUrl = urlRes.data.uploadUrl;
+                
+                // 2. Upload file directly from browser to Google Drive
+                const driveUploadRes = await fetch(uploadUrl, {
+                    method: 'PUT',
+                    body: selectedFile,
                     headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
+                        'Content-Type': type || "application/octet-stream"
+                    }
                 });
 
-                resourceLink = uploadRes.data.link;
-                uploadedFileName = selectedFile.name;
+                if (!driveUploadRes.ok) {
+                    throw new Error("Failed to upload file directly to Google Drive.");
+                }
+
+                const driveData = await driveUploadRes.json();
+                const fileId = driveData.id;
+
+                // 3. Make the uploaded file public and get the view link
+                const makePublicRes = await axiosPublic.post("/resources/make-public", { fileId });
+                
+                resourceLink = makePublicRes.data.webViewLink;
+                uploadedFileName = name;
             }
 
             const resource = {
@@ -293,13 +313,13 @@ const AddResource = () => {
                                 validate: {
                                     lessThanMax: (files) => 
                                         !files[0] || 
-                                        files[0].size <= 100 * 1024 * 1024 || 
-                                        'File size exceeds the 100MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.'
+                                        files[0].size <= 50 * 1024 * 1024 || 
+                                        'File size exceeds the 50MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.'
                                 }
                             })}
                             className="w-full border p-2 rounded bg-white"
                         />
-                        <p className="text-gray-500 text-xs mt-1">Max file size: 100MB</p>
+                        <p className="text-gray-500 text-xs mt-1">Max file size: 50MB</p>
                         {errors.resourceFile && (
                             <p className="text-red-500 text-sm mt-1">{errors.resourceFile.message}</p>
                         )}
