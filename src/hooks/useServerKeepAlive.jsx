@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const SERVER_URL = 'https://cg-savior-server.vercel.app'; // will be replaced with render URL
+const SERVER_URL = 'https://cg-savior-server.onrender.com'; // will be replaced with render URL
 const PING_INTERVAL_MS = 12 * 60 * 1000; // 12 minutes (well within Render's 15-min sleep threshold)
 
 /**

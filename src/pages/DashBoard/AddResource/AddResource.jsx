@@ -45,10 +45,10 @@ const AddResource = () => {
                     throw new Error("Please choose a valid image file.");
                 }
 
-                // Vercel serverless functions have a 4.5MB request payload limit (4.5 * 1024 * 1024 bytes)
-                const MAX_FILE_SIZE = 4.5 * 1024 * 1024;
+                // Server (Render) allows up to 100MB uploads
+                const MAX_FILE_SIZE = 100 * 1024 * 1024;
                 if (selectedFile.size > MAX_FILE_SIZE) {
-                    throw new Error("File size exceeds the 4.5MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.");
+                    throw new Error("File size exceeds the 100MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.");
                 }
 
                 const formData = new FormData();
@@ -293,13 +293,13 @@ const AddResource = () => {
                                 validate: {
                                     lessThanMax: (files) => 
                                         !files[0] || 
-                                        files[0].size <= 4.5 * 1024 * 1024 || 
-                                        'File size exceeds the 4.5MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.'
+                                        files[0].size <= 100 * 1024 * 1024 || 
+                                        'File size exceeds the 100MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.'
                                 }
                             })}
                             className="w-full border p-2 rounded bg-white"
                         />
-                        <p className="text-gray-500 text-xs mt-1">Max file size: 4.5MB (for larger files, please host externally and use the Link format)</p>
+                        <p className="text-gray-500 text-xs mt-1">Max file size: 100MB</p>
                         {errors.resourceFile && (
                             <p className="text-red-500 text-sm mt-1">{errors.resourceFile.message}</p>
                         )}

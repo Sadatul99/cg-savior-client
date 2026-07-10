@@ -4,7 +4,7 @@ const useCourses = () => {
   const { data: courses = [], refetch } = useQuery({
     queryKey: ['courses'],
     queryFn: async () => {
-      const res = await fetch('https://cg-savior-server.vercel.app/courses');
+      const res = await fetch('https://cg-savior-server.onrender.com/courses');
       return res.json();
     },
   });
