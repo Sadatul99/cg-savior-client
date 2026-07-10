@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import useServerKeepAlive from "../hooks/useServerKeepAlive";
 
 
 // step 1 : create context
@@ -18,6 +19,9 @@ const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
     const axiosPublic = useAxiosPublic();
+
+    // Keep Render's free-tier server awake by pinging /health every 12 minutes
+    useServerKeepAlive();
 
 
     // step 5: create , login , logout funtionalitis 
