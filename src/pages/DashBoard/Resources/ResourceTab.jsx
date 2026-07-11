@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 const ResourceTab = ({ items, refetch, isAdmin }) => {
     const axiosSecure = useAxiosSecure();
+    const [votingResourceId, setVotingResourceId] = useState(null);
+
+    const handleVote = async (id, direction) => {
+        setVotingResourceId(id);
+        try {
+            await axiosSecure.patch(`/resources/${id}/vote`, { direction });
+            refetch();
+        } catch (err) {
+            console.error('Failed to submit resource vote:', err);
+            Swal.fire('Error!', err.response?.data?.message || 'Failed to submit vote.', 'error');
+        } finally {
+            setVotingResourceId(null);
+        }
+    };
 
     const handleDelete = async (id) => {
         const confirm = await Swal.fire({
@@ -59,7 +73,31 @@ const ResourceTab = ({ items, refetch, isAdmin }) => {
                                     View
                                 </a>
                             </td>
-                            <td className="px-4 py-2 border text-center">{res.vote}</td>
+                            <td className="px-4 py-2 border text-center">
+                                <div className="flex items-center justify-center gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => handleVote(res._id, 1)}
+                                        disabled={votingResourceId === res._id}
+                                        className="text-lg transition-transform hover:scale-125 disabled:cursor-not-allowed disabled:opacity-50"
+                                        title="Like resource"
+                                        aria-label="Like resource"
+                                    >
+                                        👍
+                                    </button>
+                                    <span className="min-w-6 font-semibold">{res.vote ?? 0}</span>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleVote(res._id, -1)}
+                                        disabled={votingResourceId === res._id}
+                                        className="text-lg transition-transform hover:scale-125 disabled:cursor-not-allowed disabled:opacity-50"
+                                        title="Dislike resource"
+                                        aria-label="Dislike resource"
+                                    >
+                                        👎
+                                    </button>
+                                </div>
+                            </td>
                             {isAdmin && (
                                 <td className="px-4 py-2 border text-center">
                                     <button
