@@ -22,7 +22,7 @@ const Resources = ({ course_code }) => {
 
     const [tabIndex, setTabIndex] = useState(0);
 
-    const isAdmin = useAdmin();
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="p-4">

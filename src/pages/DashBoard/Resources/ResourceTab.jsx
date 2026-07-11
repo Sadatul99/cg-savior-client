@@ -1,12 +1,10 @@
 import React from 'react';
 import { FaTrash } from 'react-icons/fa';
-// import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 const ResourceTab = ({ items, refetch, isAdmin }) => {
-    // const axiosSecure = useAxiosSecure();
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
     const handleDelete = async (id) => {
         const confirm = await Swal.fire({
@@ -19,12 +17,12 @@ const ResourceTab = ({ items, refetch, isAdmin }) => {
         
             if (confirm.isConfirmed) {
               try {
-                await axiosPublic.delete(`/resources/${id}`);
+                await axiosSecure.delete(`/resources/${id}`);
                 refetch();
-                Swal.fire('Deleted!', 'Course has been deleted.', 'success');
+                Swal.fire('Deleted!', 'Resource has been deleted.', 'success');
               } catch (err) {
                 console.error(err);
-                Swal.fire('Error!', 'Failed to delete course.', 'error');
+                Swal.fire('Error!', err.response?.data?.message || 'Failed to delete resource.', 'error');
               }
             }
           };
@@ -65,7 +63,7 @@ const ResourceTab = ({ items, refetch, isAdmin }) => {
                             {isAdmin && (
                                 <td className="px-4 py-2 border text-center">
                                     <button
-                                        onClick={() => handleDelete(res.id)}
+                                        onClick={() => handleDelete(res._id)}
                                         className="text-red-600 hover:text-red-800"
                                         title="Delete Resource"
                                     >

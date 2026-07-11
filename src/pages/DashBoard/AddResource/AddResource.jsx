@@ -31,6 +31,7 @@ const AddResource = () => {
         try {
             let resourceLink = data.link;
             let uploadedFileName = null;
+            let driveFileId = null;
 
             if (data.type === "youtube") {
                 resourceLink = data.link;
@@ -45,10 +46,9 @@ const AddResource = () => {
                     throw new Error("Please choose a valid image file.");
                 }
 
-                // Server/Proxy allows up to ~50MB uploads before timeout/limits
-                const MAX_FILE_SIZE = 50 * 1024 * 1024;
+                const MAX_FILE_SIZE = 100 * 1024 * 1024;
                 if (selectedFile.size > MAX_FILE_SIZE) {
-                    throw new Error("File size exceeds the 50MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.");
+                    throw new Error("File size exceeds the 100MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.");
                 }
 
                 const formData = new FormData();
@@ -62,6 +62,7 @@ const AddResource = () => {
 
                 resourceLink = uploadRes.data.link;
                 uploadedFileName = selectedFile.name;
+                driveFileId = uploadRes.data.id;
             }
 
             const resource = {
@@ -72,6 +73,7 @@ const AddResource = () => {
                 link: resourceLink,
                 submission_format: data.type === "youtube" ? "link" : data.submissionFormat,
                 uploaded_file_name: uploadedFileName,
+                drive_file_id: driveFileId,
                 vote: 0
             };
 
@@ -293,13 +295,13 @@ const AddResource = () => {
                                 validate: {
                                     lessThanMax: (files) => 
                                         !files[0] || 
-                                        files[0].size <= 50 * 1024 * 1024 || 
-                                        'File size exceeds the 50MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.'
+                                        files[0].size <= 100 * 1024 * 1024 || 
+                                        'File size exceeds the 100MB limit. Please upload a smaller file or host it externally (e.g., on Google Drive) and paste the link here.'
                                 }
                             })}
                             className="w-full border p-2 rounded bg-white"
                         />
-                        <p className="text-gray-500 text-xs mt-1">Max file size: 50MB</p>
+                        <p className="text-gray-500 text-xs mt-1">Max file size: 100MB</p>
                         {errors.resourceFile && (
                             <p className="text-red-500 text-sm mt-1">{errors.resourceFile.message}</p>
                         )}
