@@ -1,13 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import Resources from '../Resources/Resources';
 import ClassroomResources from '../ClassroomResources/ClassroomResources';
+import AddResource from '../AddResource/AddResource';
 
 const CoursePage = () => {
   const { course_code } = useParams();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const [isAddResourceOpen, setIsAddResourceOpen] = useState(false);
 
   const { data: course, isLoading, error } = useQuery({
     queryKey: ['course', course_code],
@@ -50,11 +53,39 @@ const CoursePage = () => {
             <p><span className="font-medium">Pre-requisite:</span> {pre_requisite === "N/A" ? "None" : pre_requisite}</p>
             <p><span className="font-medium">Soft Pre-requisite:</span> {soft_pre_requisite === "N/A" ? "None" : soft_pre_requisite}</p>
           </div>
+          <button
+            type="button"
+            onClick={() => setIsAddResourceOpen(true)}
+            className="btn btn-primary"
+          >
+            Add resource
+          </button>
         </div>
       </div>
 
       {/* Resources Section */}
       <Resources course_code={course_code} />
+      {isAddResourceOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="add-resource-title"
+        >
+          <div className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-xl bg-base-100 p-6 shadow-xl">
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm absolute right-3 top-3"
+              aria-label="Close add resource form"
+              onClick={() => setIsAddResourceOpen(false)}
+            >
+              ✕
+            </button>
+            <p className="mb-3 text-center text-sm text-gray-600">Adding a resource for <strong>{course_code}</strong></p>
+            <AddResource courseCode={course_code} onSuccess={() => setIsAddResourceOpen(false)} />
+          </div>
+        </div>
+      )}
       {/* <ClassroomResources course_code={course_code} /> */}
     </>
   );

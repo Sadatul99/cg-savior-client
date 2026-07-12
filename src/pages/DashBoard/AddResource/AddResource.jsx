@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import DebouncedSearchCombobox from "../../../components/DebouncedSeach/DebouncedSearchCombobox";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAuth from "../../../hooks/useAuth";
+import { useQueryClient } from "@tanstack/react-query";
 
-const AddResource = () => {
+const AddResource = ({ courseCode, onSuccess }) => {
     const { 
         register, 
         handleSubmit, 
@@ -21,9 +23,11 @@ const AddResource = () => {
     });
     
     const [courseCodes, setCourseCodes] = useState([]);
-    const [selectedCode, setSelectedCode] = useState('');
-    const [isLoadingCourses, setIsLoadingCourses] = useState(true);
+    const [selectedCode, setSelectedCode] = useState(courseCode || '');
+    const [isLoadingCourses, setIsLoadingCourses] = useState(!courseCode);
     const axiosPublic = useAxiosPublic();
+    const { user } = useAuth();
+    const queryClient = useQueryClient();
     const selectedType = watch("type");
     const submissionFormat = selectedType === "youtube" ? "link" : watch("submissionFormat");
 
@@ -66,7 +70,7 @@ const AddResource = () => {
             }
 
             const resource = {
-                course_code: data.course_code,
+                course_code: courseCode || data.course_code,
                 description: data.description,
                 publishers_name: data.publishers_name || null,
                 type: data.type,
@@ -74,7 +78,9 @@ const AddResource = () => {
                 submission_format: data.type === "youtube" ? "link" : data.submissionFormat,
                 uploaded_file_name: uploadedFileName,
                 drive_file_id: driveFileId,
-                vote: 0
+                vote: 0,
+                uploader_email: user?.email || null,
+                uploader_name: user?.displayName || null,
             };
 
             const resourceRes = await axiosPublic.post('/resources', resource);
@@ -88,7 +94,9 @@ const AddResource = () => {
                     timer: 1500
                 });
                 reset();
-                setSelectedCode('');
+                setSelectedCode(courseCode || '');
+                await queryClient.invalidateQueries({ queryKey: ['resources'] });
+                onSuccess?.();
             }
         } catch (error) {
             console.error('Error adding resource:', error);
@@ -112,6 +120,7 @@ const AddResource = () => {
     };
 
     useEffect(() => {
+        if (courseCode) return;
         // Fetch actual course codes from API
         const fetchCourseCodes = async () => {
             try {
@@ -128,7 +137,7 @@ const AddResource = () => {
         };
 
         fetchCourseCodes();
-    }, [axiosPublic]);
+    }, [axiosPublic, courseCode]);
 
     useEffect(() => {
         setValue("course_code", selectedCode, { shouldValidate: true });
@@ -159,7 +168,7 @@ const AddResource = () => {
             />
             
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div>
+                {!courseCode && <div>
                     <label className="block mb-1 font-semibold">Course Code *</label>
                     {isLoadingCourses ? (
                         <div className="w-full border p-2 rounded bg-gray-100 animate-pulse">
@@ -178,7 +187,7 @@ const AddResource = () => {
                             )}
                         </>
                     )}
-                </div>
+                </div>}
 
                 <div>
                     <label className="block mb-1 font-semibold">Resource Title *</label>
