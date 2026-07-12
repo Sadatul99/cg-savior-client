@@ -29,12 +29,19 @@ const Courses = () => {
   const debouncedQuery = useDebounce(query, 300);
 
   const filteredCourses = useMemo(() => {
-    if (!debouncedQuery) return courses;
-
     const normalizedQuery = debouncedQuery.toLowerCase();
-    return courses.filter((course) =>
-      course.course_code.toLowerCase().includes(normalizedQuery) ||
-      course.course_name?.toLowerCase().includes(normalizedQuery)
+    const matchingCourses = debouncedQuery
+      ? courses.filter((course) =>
+        course.course_code.toLowerCase().includes(normalizedQuery) ||
+        course.course_name?.toLowerCase().includes(normalizedQuery)
+      )
+      : courses;
+
+    return [...matchingCourses].sort((firstCourse, secondCourse) =>
+      firstCourse.course_code.localeCompare(secondCourse.course_code, undefined, {
+        numeric: true,
+        sensitivity: 'base',
+      })
     );
   }, [debouncedQuery, courses]);
 
