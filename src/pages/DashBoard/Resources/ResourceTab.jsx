@@ -10,8 +10,12 @@ const ResourceTab = ({ items, refetch, isAdmin }) => {
     const handleVote = async (id, direction) => {
         setVotingResourceId(id);
         try {
-            await axiosSecure.patch(`/resources/${id}/vote`, { direction });
-            refetch();
+            const response = await axiosSecure.patch(`/resources/${id}/vote`, { direction });
+            if (response.data.changed) {
+                refetch();
+            } else {
+                Swal.fire('Vote unchanged', response.data.message, 'info');
+            }
         } catch (err) {
             console.error('Failed to submit resource vote:', err);
             Swal.fire('Error!', err.response?.data?.message || 'Failed to submit vote.', 'error');
